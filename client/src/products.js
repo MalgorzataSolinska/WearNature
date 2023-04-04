@@ -2,7 +2,7 @@ export const products = [
   {
     _id: '621235e59540445b3sdfe9s0',
     name: 'Hand Knitted Wool Sweater',
-    image: '/images/flip.jpg',
+    image: '/images/woolSweater.jpeg',
     description:
       'This beautiful raglan sweater is hand knitted by my mom in Poland. Wool used to make this exclusive garment was obtained by undo another sweater bought in second hand. It is 100% lambswool. ',
     brand: 'none',
@@ -20,7 +20,7 @@ export const products = [
   {
     _id: '636985e59540445b3c45e6af',
     name: 'Hand Knitted Wool Beanie',
-    image: '/images/iphone.jpg',
+    image: '/images/woolbeanie.jpeg',
     description:
       'This beautiful beanie is hand knitted by me in Poland. Wool used to make this exclusive garment was obtained by undo another sweater bought in second hand. It is 100% lambswool. ',
     brand: 'none',
@@ -36,11 +36,11 @@ export const products = [
   {
     _id: '6369860d9540445b3c45e6b1',
     name: 'Silk dress',
-    image: '/images/tab.jpg',
+    image: '/images/silkdress.jpeg',
     description: 'This beautiful dress was found in second hand. It is 100% silk and in perfect shape. ',
-    brand: 'SilkSilk',
+    brand: 'Equipment Femme',
     material: 'silk',
-    size: 10,
+    size: 8,
     category: 'Clothes',
     price: 150,
     rating: 0,
@@ -53,11 +53,11 @@ export const products = [
   {
     _id: '6369863c9540445b3c45e6b3',
     name: 'Linen dress',
-    image: '/images/s4prowatch.jpg',
+    image: '/images/linendress.jpeg',
     description: 'This beautiful linen dress was found in second hand. It is 100% linen and in perfect shape. ',
-    brand: 'LinenLinen',
+    brand: 'Cynthia Rowley',
     material: 'linen',
-    size: 10,
+    size: 8,
     category: 'Clothes',
     price: 80,
     rating: 0,

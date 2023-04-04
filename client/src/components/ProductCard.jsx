@@ -13,6 +13,7 @@ import {
   Link,
   HStack,
   Text,
+  AspectRatio,
 } from '@chakra-ui/react';
 import { FiShoppingCart } from 'react-icons/fi';
 import { Link as ReactLink } from 'react-router-dom';
