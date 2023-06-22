@@ -16,6 +16,9 @@ import {
 } from '@chakra-ui/react';
 import { Link as ReactLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import CartItem from '../components/CartItem';
+import CartOrderSummary from '../components/CartOrderSummary';
+
 const CartScreen = () => {
   const cartInfo = useSelector((state) => state.cart);
   const { loading, error, cart } = cartInfo;
@@ -28,17 +31,17 @@ const CartScreen = () => {
       ) : error ? (
         <Alert status='error'>
           <AlertIcon />
-          <AlertTitle>We are sorry!</AlertTitle>
+          <AlertTitle>Przepraszamy!</AlertTitle>
           <AlertDescription>{error}</AlertDescription>
         </Alert>
       ) : cart.length <= 0 ? (
-        <Alert status='warting'>
+        <Alert status='warning'>
           <AlertIcon />
-          <AlertTitle> Your cart is empty. </AlertTitle>
+          <AlertTitle> Twój koszyk jest pusty. </AlertTitle>
           <AlertDescription>
             <Link as={ReactLink} to='/products'>
               {' '}
-              Click here to see our products.{' '}
+              Kliknij, by wrócić do produktów. {' '}
             </Link>
           </AlertDescription>
         </Alert>
@@ -56,18 +59,22 @@ const CartScreen = () => {
           >
             <Stack spacing={{ base: '8', md: '10' }} flex='2'>
               <Heading fontSize='2xl' fontWeight='extrabold'>
-                Shopping Cart
+                Twój koszyk
               </Heading>
 
-              <Stack spacing='6'>{/*CartItem*/}</Stack>
+              <Stack spacing='6'>
+                {cart.map((cartItem) => (
+                  <CartItem key={cartItem.id} cartItem={cartItem} />
+                ))}
+              </Stack>
             </Stack>
-            <Flex direction='column' align='center' flex='1'>
-              {/* CartOrderSummary  */}
+            <Flex direction='column' align='center' flex='1.5'>
+              <CartOrderSummary />
               <HStack mt='6' fontWeight='semibold'>
-                <p>or</p>
+                {/* <p> lub </p> */}
                 <Link as={ReactLink} to='/products' color={mode('orange.600', 'orange.200')}>
                   {' '}
-                  Continue Shopping
+                  Kontynuuj zakupy
                 </Link>
               </HStack>
             </Flex>

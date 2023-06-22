@@ -18,8 +18,8 @@ import { FaCottonBureau } from 'react-icons/fa';
 import React from 'react';
 
 const links = [
-  { linkName: 'Products', path: '/products' },
-  { linkName: 'Shopping Cart', path: '/cart' },
+  { linkName: 'Produkty', path: '/products' },
+  { linkName: 'Koszyk', path: '/cart' },
 ];
 
 const NavLink = ({ path, children }) => (
@@ -48,11 +48,11 @@ const Navbar = () => {
           onClick={isOpen ? onClose : onOpen}
         />
 
-        <HStack>
+        <HStack spacing={5}>
           <Link as={ReactLink} to='/'>
             <Flex alignItems='center'>
               <Icon as={FaCottonBureau} h={7} w={7} color='orange.600' />
-              <Text>Wear Nature</Text>
+              <Text color='orange.600' fontWeight='medium' fontSize={20}>Wear Nature</Text>
             </Flex>
           </Link>
           <HStack as='nav' spacing={3} display={{ base: 'none', md: 'flex' }}>
@@ -72,20 +72,20 @@ const Navbar = () => {
             />
           </NavLink>
           <Button as={ReactLink} to='/login' p={2} fontSize='sm' fontWeight={400} variant='link'>
-            Sign In
+            Zarejestruj się 
           </Button>
           <Button
             as={ReactLink}
             to='/registration'
             m={2}
             display={{ base: 'none', md: 'inline-flex' }}
-            fontSize='sm'
-            fontWeight={600}
+            //fontSize='sm'
+            //fontWeight={600}
             _hover={{ bg: 'orange.400' }}
             bg='orange.600'
             color='white'
           >
-            Sign Up
+            Zaloguj się 
           </Button>
         </Flex>
       </Flex>
@@ -98,7 +98,7 @@ const Navbar = () => {
               </NavLink>
             ))}
             <NavLink key='sign up' path='/registration'>
-              Sign Up
+              Zaloguj się 
             </NavLink>
           </Stack>
         </Box>

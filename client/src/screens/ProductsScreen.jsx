@@ -33,7 +33,7 @@ const ProductsScreen = () => {
       ) : error ? (
         <Alert status='error'>
           <AlertIcon />
-          <AlertTitle>We are sorry!</AlertTitle>
+          <AlertTitle>Przepraszamy!</AlertTitle>
           <AlertDescription>{error}</AlertDescription>
         </Alert>
       ) : (

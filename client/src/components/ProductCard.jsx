@@ -50,15 +50,15 @@ const ProductCard = ({ product }) => {
   const cartInfo = useSelector((state) => state.cart);
   const { cart } = cartInfo;
   const addItem = (id) => {
-    if (cart.some((cartItem) => cartItem.id === id)) {
+    if (cart.some((cartItem) => cartItem.id === id )) {
       toast({
-        descroption: 'This item is already in your cart. Go to your cart to change the amount of products.',
+        description: 'Ten przedmiot jest juz w koszyku. Przejdź do koszyka, by zmienić ilość produktów.',
         status: 'error',
         isClosable: true,
       });
     } else {
       dispatch(addCartItem(id, 1));
-      toast({ description: 'Item has been added.', status: 'success', isClosable: true });
+      toast({ description: 'Przedmiot dodany do koszyka.', status: 'success', isClosable: true });
     }
   };
 
@@ -83,12 +83,12 @@ const ProductCard = ({ product }) => {
         <Box>
           {product.stock <= 0 && (
             <Badge rounded='full' px='2' fontSize='1em' colorScheme='red' alignSelf='center' marginTop='1.5'>
-              SOLD OUT
+              WYPRZEDANE
             </Badge>
           )}
           {product.isNew && (
             <Badge rounded='full' px='2' fontSize='1em' colorScheme='green' alignSelf='center' marginTop='1.5'>
-              NEW
+              NOWOŚĆ
             </Badge>
           )}
         </Box>
