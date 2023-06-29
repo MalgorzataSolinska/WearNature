@@ -39,71 +39,90 @@ const Navbar = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
   return (
-    <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
-      <Flex h={16} alignItems='center' justifyContent='space-between'>
-        <IconButton
-          size='md'
-          icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-          display={{ md: 'none' }}
-          onClick={isOpen ? onClose : onOpen}
-        />
-
-        <HStack spacing={5}>
-          <Link as={ReactLink} to='/'>
-            <Flex alignItems='center'>
-              <Icon as={FaCottonBureau} h={7} w={7} color='orange.600' />
-              <Text color='orange.600' fontWeight='medium' fontSize={20}>Wear Nature</Text>
-            </Flex>
-          </Link>
-          <HStack as='nav' spacing={3} display={{ base: 'none', md: 'flex' }}>
-            {links.map((link) => (
-              <NavLink key={link.linkName} path={link.path}>
-                {link.linkName}
-              </NavLink>
-            ))}
-          </HStack>
-        </HStack>
-        <Flex alignItems='center'>
-          <NavLink>
-            <Icon
-              as={colorMode === 'light' ? MoonIcon : SunIcon}
-              alignSelf='center'
-              onClick={() => toggleColorMode()}
-            />
-          </NavLink>
-          <Button as={ReactLink} to='/login' p={2} fontSize='sm' fontWeight={400} variant='link'>
-            Zarejestruj się 
-          </Button>
-          <Button
-            as={ReactLink}
-            to='/registration'
-            m={2}
-            display={{ base: 'none', md: 'inline-flex' }}
-            //fontSize='sm'
-            //fontWeight={600}
-            _hover={{ bg: 'orange.400' }}
-            bg='orange.600'
-            color='white'
-          >
-            Zaloguj się 
-          </Button>
+    <Stack>
+      <Box bg='orange.600'>
+        <Flex h={5} alignItems='center' justifyContent='center'>
+          <Text fontSize='sm' color='white'>
+            Darmowa dostawa do zamówień powyżej 100 zł
+          </Text>
+          
         </Flex>
-      </Flex>
-      {isOpen ? (
-        <Box pb={4} display={{ md: 'none' }}>
-          <Stack as='nav' spacing={4}>
-            {links.map((link) => (
-              <NavLink key={link.linkName} path={link.path}>
-                {link.linkName}
-              </NavLink>
-            ))}
-            <NavLink key='sign up' path='/registration'>
-              Zaloguj się 
-            </NavLink>
-          </Stack>
         </Box>
-      ) : null}
-    </Box>
+        <Box bg='gray.300'>
+        <Flex h={5} alignItems='center' justifyContent='center'> 
+        <Text fontSize='sm'> 
+            Wysyłka w 24h 
+          </Text>
+        </Flex>
+        </Box>
+      
+      <Box bg={useColorModeValue('gray.100', 'gray.900')} px={3}>
+        <Flex h={16} alignItems='center' justifyContent='space-between'>
+          <IconButton
+            size='md'
+            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+            display={{ md: 'none' }}
+            onClick={isOpen ? onClose : onOpen}
+          />
+          <HStack spacing={5}>
+            <Link as={ReactLink} to='/'>
+              <Flex alignItems='center'>
+                <Icon as={FaCottonBureau} h={7} w={7} color='orange.600' />
+                <Text color='orange.600' fontWeight='medium' fontSize={20}>
+                  Wear Nature
+                </Text>
+              </Flex>
+            </Link>
+            <HStack as='nav' spacing={3} display={{ base: 'none', md: 'flex' }}>
+              {links.map((link) => (
+                <NavLink key={link.linkName} path={link.path}>
+                  {link.linkName}
+                </NavLink>
+              ))}
+            </HStack>
+          </HStack>
+          <Flex alignItems='center'>
+            <NavLink>
+              <Icon
+                as={colorMode === 'light' ? MoonIcon : SunIcon}
+                alignSelf='center'
+                onClick={() => toggleColorMode()}
+              />
+            </NavLink>
+            <Button as={ReactLink} to='/login' p={2} fontSize='sm' fontWeight={400} variant='link'>
+              Zarejestruj się
+            </Button>
+            <Button
+              as={ReactLink}
+              to='/registration'
+              m={2}
+              display={{ base: 'none', md: 'inline-flex' }}
+              //fontSize='sm'
+              //fontWeight={600}
+              _hover={{ bg: 'orange.400' }}
+              bg='orange.600'
+              color='white'
+            >
+              Zaloguj się
+            </Button>
+          </Flex>
+        </Flex>
+        {isOpen ? (
+          <Box pb={4} display={{ md: 'none' }}>
+            <Stack as='nav' spacing={4}>
+              {links.map((link) => (
+                <NavLink key={link.linkName} path={link.path}>
+                  {link.linkName}
+                </NavLink>
+              ))}
+              <NavLink key='sign up' path='/registration'>
+                Zaloguj się
+              </NavLink>
+            </Stack>
+          </Box>
+        ) : null}
+      </Box>
+    </Stack>
   );
 };
 

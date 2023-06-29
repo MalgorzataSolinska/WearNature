@@ -102,7 +102,7 @@ const ProductCard = ({ product }) => {
       </Flex>
 
       <Flex mt='1' justifyContent='space-between' alignContent='center'>
-        <Link as={ReactLink} to={`/product${product._id}`} pt='1' cursor='pointer'>
+        <Link as={ReactLink} to={`/product/${product._id}`} pt='1' cursor='pointer'>
           <Box fontSize='1.8em' fontWeight='semibold' lineHeight='tight'>
             {product.name}
           </Box>
