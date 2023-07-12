@@ -22,6 +22,7 @@ import {
 } from '@chakra-ui/react';
 import { MinusIcon, StarIcon, SmallAddIcon } from '@chakra-ui/icons';
 import { BiPackage, BiSupport, BiSend } from 'react-icons/bi';
+import {FiTruck} from 'react-icons/fi'
 import { useDispatch, useSelector } from 'react-redux';
 import { getProduct } from '../redux/actions/productActions';
 import { addCartItem } from '../redux/actions/cartActions';
@@ -84,7 +85,7 @@ const ProductScreen = () => {
                 mb={{ base: '12', md: 'none' }}
               >
                 {product.isNew && (
-                  <Badge rounded='full' w='70px' fontSize='0.8em' colorScheme='green'>
+                  <Badge rounded='full' w='70px' fontSize='0.8em' colorScheme='teal'>
                     Nowość
                   </Badge>
                 )}
@@ -131,7 +132,7 @@ const ProductScreen = () => {
 
                   <Button
                     isDisabled={product.stock <= 0}
-                    colorScheme={product.stock <= 0 ? 'gray' : 'orange'}
+                    colorScheme={product.stock <= 0 ? 'gray' : 'teal'}
                     onClick={() => addItem()}
                   >
                     <Text> {product.stock <= 0 ? 'Wyprzedane' : 'Dodaj do koszyka'}</Text>
@@ -145,7 +146,7 @@ const ProductScreen = () => {
                       </Text>
                     </Flex>
                     <Flex alignItems='center'>
-                      <BiSend size='20px' />
+                      <FiTruck size='20px' />
                       <Text fontWeight='md' fontSize='sm' ml='2'>
                         Wysyłka w 24h
                       </Text>

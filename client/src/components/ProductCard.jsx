@@ -87,7 +87,7 @@ const ProductCard = ({ product }) => {
             </Badge>
           )}
           {product.isNew && (
-            <Badge rounded='full' px='2' fontSize='1em' colorScheme='green' alignSelf='center' marginTop='1.5'>
+            <Badge rounded='full' px='2' fontSize='1em' colorScheme='teal' alignSelf='center' marginTop='1.5'>
               NOWOŚĆ
             </Badge>
           )}

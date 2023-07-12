@@ -26,7 +26,7 @@ const CartScreen = () => {
     <Wrap spacing='30px' justify='center' minHeight='100vh'>
       {loading ? (
         <Stack direction='row' spacing={4}>
-          <Spinner mt={20} thickness='7px' speed='1s' emptyColor='grey.200' color='orange.600' size='xl' />
+          <Spinner mt={20} thickness='7px' speed='1s' emptyColor='grey.200' color='teal.600' size='xl' />
         </Stack>
       ) : error ? (
         <Alert status='error'>
@@ -72,7 +72,7 @@ const CartScreen = () => {
               <CartOrderSummary />
               <HStack mt='6' fontWeight='semibold'>
                 {/* <p> lub </p> */}
-                <Link as={ReactLink} to='/products' color={mode('orange.600', 'orange.200')}>
+                <Link as={ReactLink} to='/products' color={mode('teal.600', 'teal.200')}>
                   {' '}
                   Kontynuuj zakupy
                 </Link>

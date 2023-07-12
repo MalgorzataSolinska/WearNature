@@ -40,22 +40,12 @@ const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   return (
     <Stack>
-      <Box bg='orange.600'>
+      <Box bg='red.400'>
         <Flex h={5} alignItems='center' justifyContent='center'>
-          <Text fontSize='sm' color='white'>
-            Darmowa dostawa do zamówień powyżej 100 zł
-          </Text>
-          
+          <Text fontSize='sm'>Darmowa dostawa do zamówień powyżej 100 zł</Text>
         </Flex>
-        </Box>
-        <Box bg='gray.300'>
-        <Flex h={5} alignItems='center' justifyContent='center'> 
-        <Text fontSize='sm'> 
-            Wysyłka w 24h 
-          </Text>
-        </Flex>
-        </Box>
-      
+      </Box>
+
       <Box bg={useColorModeValue('gray.100', 'gray.900')} px={3}>
         <Flex h={16} alignItems='center' justifyContent='space-between'>
           <IconButton
@@ -67,8 +57,8 @@ const Navbar = () => {
           <HStack spacing={5}>
             <Link as={ReactLink} to='/'>
               <Flex alignItems='center'>
-                <Icon as={FaCottonBureau} h={7} w={7} color='orange.600' />
-                <Text color='orange.600' fontWeight='medium' fontSize={20}>
+                <Icon as={FaCottonBureau} h={7} w={7} color={useColorModeValue('gray.700', 'gray.300')} />
+                <Text fontWeight='medium' fontSize={20} color={useColorModeValue('gray.700', 'gray.300')}>
                   Wear Nature
                 </Text>
               </Flex>
@@ -97,10 +87,8 @@ const Navbar = () => {
               to='/registration'
               m={2}
               display={{ base: 'none', md: 'inline-flex' }}
-              //fontSize='sm'
-              //fontWeight={600}
-              _hover={{ bg: 'orange.400' }}
-              bg='orange.600'
+              _hover={{ bg: 'gray.300' }}
+              bg='teal.500'
               color='white'
             >
               Zaloguj się
