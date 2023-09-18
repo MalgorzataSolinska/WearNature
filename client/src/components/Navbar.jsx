@@ -11,11 +11,21 @@ import {
   Stack,
   useColorModeValue,
   useColorMode,
+  useToast,
+  MenuButton,
+  MenuItem,
+  Menu,
+  MenuList,
+  MenuDivider,
 } from '@chakra-ui/react';
 import { Link as ReactLink } from 'react-router-dom';
-import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
+import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import { FaCottonBureau } from 'react-icons/fa';
+import { CgProfile } from 'react-icons/cg';
+import { MdLocalShipping, MdLogout } from 'react-icons/md';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../redux/actions/userActions';
 
 const links = [
   { linkName: 'Produkty', path: '/products' },
@@ -38,6 +48,15 @@ const NavLink = ({ path, children }) => (
 const Navbar = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
+  const user = useSelector((state) => state.user);
+  const { userInfo } = user;
+  const dispatch = useDispatch();
+  const toast = useToast();
+
+  const logoutHandler = () => {
+    dispatch(logout());
+    toast({ description: 'Zostałeś wylogowany', status: 'success', isClosable: true });
+  };
   return (
     <Stack>
       <Box bg='red.400'>
@@ -79,20 +98,48 @@ const Navbar = () => {
                 onClick={() => toggleColorMode()}
               />
             </NavLink>
-            <Button as={ReactLink} to='/login' p={2} fontSize='sm' fontWeight={400} variant='link'>
-              Zarejestruj się
-            </Button>
-            <Button
-              as={ReactLink}
-              to='/registration'
-              m={2}
-              display={{ base: 'none', md: 'inline-flex' }}
-              _hover={{ bg: 'gray.300' }}
-              bg='teal.500'
-              color='white'
-            >
-              Zaloguj się
-            </Button>
+
+            {userInfo ? (
+              <>
+                <Menu>
+                  <MenuButton px='4' py='2' transition='all 0.5s' as={Button}>
+                    {userInfo.firstName} <ChevronDownIcon />
+                    </MenuButton>
+                    <MenuList>
+                      <MenuItem as={ReactLink} to='/profile'>
+                        <CgProfile />
+                        <Text ml='2'> Profil użytkownika </Text>
+                      </MenuItem>
+                      <MenuItem as={ReactLink} to='/your-orders'>
+                        <MdLocalShipping />
+                        <Text ml='2'> Twoje Zamówienia </Text>
+                      </MenuItem>
+                      <MenuDivider />
+                      <MenuItem onClick={logoutHandler}>
+                        <MdLogout />
+                        <Text ml='2'> Wyloguj się </Text>
+                      </MenuItem>
+                    </MenuList>
+                </Menu>
+              </>
+            ) : (
+              <>
+                <Button as={ReactLink} to='/registration' p={2} fontSize='sm' fontWeight={400} variant='link'>
+                  Zarejestruj się
+                </Button>
+                <Button
+                  as={ReactLink}
+                  to='/login'
+                  m={2}
+                  display={{ base: 'none', md: 'inline-flex' }}
+                  _hover={{ bg: 'gray.300' }}
+                  bg='teal.500'
+                  color='white'
+                >
+                  Zaloguj się
+                </Button>
+              </>
+            )}
           </Flex>
         </Flex>
         {isOpen ? (
@@ -103,7 +150,7 @@ const Navbar = () => {
                   {link.linkName}
                 </NavLink>
               ))}
-              <NavLink key='sign up' path='/registration'>
+              <NavLink key='sign up' path='/login'>
                 Zaloguj się
               </NavLink>
             </Stack>
