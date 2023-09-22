@@ -77,8 +77,8 @@ const ProfileScreen = () => {
           px={{ base: '4', md: '8', lg: '12' }}
           py={{ base: '6', md: '8', lg: '12' }}
         >
-          <Stack direction={{ base: 'column', lg: 'row' }} align={{ lg: 'flex-start' }}>
-            <Stack pr={{ base: '0', md: '10' }} flex='1.5' mb={{ base: '2xl', md: 'none' }}>
+          <Stack spacing= '10' direction={{ base: 'column', lg: 'row' }} align={{ lg: 'flex-start' }}>
+            <Stack flex='1.5' mb={{ base: '2xl', md: 'none' }}>
               <Heading fontSize='2xl' fontWeight='extrabold'>
                 Profil użytkownika
               </Heading>
@@ -107,7 +107,7 @@ const ProfileScreen = () => {
                     </FormControl>
                   </Stack>
                   <Stack spacing='6'>
-                    <Button color='red' size='lg' fontSize='md' isLoading={loading} type='submit'>
+                    <Button colorScheme='teal' size='lg' fontSize='md' isLoading={loading} type='submit'>
                       Zapisz zmiany
                     </Button>
                   </Stack>

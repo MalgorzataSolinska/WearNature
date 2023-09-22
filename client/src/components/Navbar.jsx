@@ -26,10 +26,24 @@ import { MdLocalShipping, MdLogout } from 'react-icons/md';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../redux/actions/userActions';
+import {FiShoppingCart, FiMoon, FiSun} from 'react-icons/fi';
+
+const ShoppingCartIcon = () => { 
+  const cartInfo = useSelector((state) => state.cart);
+  const {cart} = cartInfo;
+  return ( 
+    <Flex> 
+      <Icon as={FiShoppingCart} h='5' w='7' alignSelf='center' />
+      {(cart.length > 0) && 
+      <Text as='sub' fontSize='13px' color='red.400' ml='-1' mr='1' fontWeight='extrabold' > {cart.length} </Text>
+      }
+    </Flex>
+  )
+}
+
 
 const links = [
-  { linkName: 'Produkty', path: '/products' },
-  { linkName: 'Koszyk', path: '/cart' },
+  { linkName: 'Produkty', path: '/products' }
 ];
 
 const NavLink = ({ path, children }) => (
@@ -90,19 +104,30 @@ const Navbar = () => {
               ))}
             </HStack>
           </HStack>
+          <HStack as='nav' spacing={3} display={{ base: 'none', md: 'flex' }}>
+          </HStack>
+          
+         
           <Flex alignItems='center'>
-            <NavLink>
+          <NavLink >
+            <ShoppingCartIcon/>
+          </NavLink >
+            <NavLink >
               <Icon
-                as={colorMode === 'light' ? MoonIcon : SunIcon}
+                as={colorMode === 'light' ? FiMoon : FiSun}
+                h='5' w='7'
+                mt='3px'
                 alignSelf='center'
                 onClick={() => toggleColorMode()}
               />
+              
             </NavLink>
+            
 
             {userInfo ? (
               <>
                 <Menu>
-                  <MenuButton px='4' py='2' transition='all 0.5s' as={Button}>
+                  <MenuButton px='5' py='2' transition='all 0.5s' as={Button}>
                     {userInfo.firstName} <ChevronDownIcon />
                     </MenuButton>
                     <MenuList>
