@@ -23,7 +23,6 @@ import TextField from '../components/TextField';
 import PasswordTextField from '../components/PasswordTextField';
 import { register } from '../redux/actions/userActions';
 
-
 const RegistrationScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();

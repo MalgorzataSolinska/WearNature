@@ -22,7 +22,7 @@ import {
 } from '@chakra-ui/react';
 import { MinusIcon, StarIcon, SmallAddIcon } from '@chakra-ui/icons';
 import { BiPackage, BiSupport, BiSend } from 'react-icons/bi';
-import {FiTruck} from 'react-icons/fi'
+import { FiTruck } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProduct } from '../redux/actions/productActions';
 import { addCartItem } from '../redux/actions/cartActions';
@@ -99,7 +99,10 @@ const ProductScreen = () => {
                 </Heading>
                 <Stack spacing='5'>
                   <Box>
-                    <Text fontSize='3xl' fontWeighr='bold' marginBottom='20px' > {product.price} zł </Text>
+                    <Text fontSize='3xl' fontWeight='bold' marginBottom='20px'>
+                      {' '}
+                      {product.price} zł{' '}
+                    </Text>
                     <Flex>
                       <HStack spacing='2px'>
                         <StarIcon color='yellow.400' />
@@ -109,42 +112,50 @@ const ProductScreen = () => {
                         <StarIcon color={product.rating >= 5 ? 'yellow.400' : 'gray.200'} />
                       </HStack>
                       <Text fontSize='md' fontWeight='bold' ml='4px'>
-                        {product.numberOfReviews}{'  '}
+                        {product.numberOfReviews}
+                        {'  '}
                         {product.numberOfReviews === 0 || product.numberOfReviews >= 5
                           ? 'Opinii'
                           : product.numberOfReviews === 1
                           ? 'Opinia'
-                          : 'Opinie'
-                        }
+                          : 'Opinie'}
                       </Text>
                     </Flex>
                   </Box>
                   <Text>{product.description}</Text>
 
-                 
-                  <Flex >
-                    <Text fontSize='md' fontWeight='bold' mr='5px'>Marka:</Text>
+                  <Flex>
+                    <Text fontSize='md' fontWeight='bold' mr='5px'>
+                      Marka:
+                    </Text>
                     {product.brand}
-                 </Flex>
-                 <Flex alignItems='center'>
-                    <Text fontSize='md' fontWeight='bold' mr='5px'>Rozmiar:</Text>
-                    {product.size}
-                 </Flex>
-                 <Flex alignItems='center'>
-                    <Text fontSize='md' fontWeight='bold' mr='5px'>Materiał:</Text>
-                    {product.material}
-                 </Flex>
-                  <Flex alignItems='center'>
-                  <Text fontWeight='bold' mr='5px'> Liczba sztuk: </Text>
-                  <Flex w='170px' p='5px' border='1px' borderColor='gray.200' alignItems='center'>
-                    <Button isDisabled={amount <= 1} onClick={() => changeAmount('minus')}>
-                      <MinusIcon />
-                    </Button>
-                    <Text mx='30px'> {amount}</Text>
-                    <Button isDisabled={amount >= product.stock} onClick={() => changeAmount('plus')}>
-                      <SmallAddIcon w='20px' h='25px' />
-                    </Button>
                   </Flex>
+                  <Flex alignItems='center'>
+                    <Text fontSize='md' fontWeight='bold' mr='5px'>
+                      Rozmiar:
+                    </Text>
+                    {product.size}
+                  </Flex>
+                  <Flex alignItems='center'>
+                    <Text fontSize='md' fontWeight='bold' mr='5px'>
+                      Materiał:
+                    </Text>
+                    {product.material}
+                  </Flex>
+                  <Flex alignItems='center'>
+                    <Text fontWeight='bold' mr='5px'>
+                      {' '}
+                      Liczba sztuk:{' '}
+                    </Text>
+                    <Flex w='170px' p='5px' border='1px' borderColor='gray.200' alignItems='center'>
+                      <Button isDisabled={amount <= 1} onClick={() => changeAmount('minus')}>
+                        <MinusIcon />
+                      </Button>
+                      <Text mx='30px'> {amount}</Text>
+                      <Button isDisabled={amount >= product.stock} onClick={() => changeAmount('plus')}>
+                        <SmallAddIcon w='20px' h='25px' />
+                      </Button>
+                    </Flex>
                   </Flex>
 
                   <Button

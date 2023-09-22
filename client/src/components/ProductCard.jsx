@@ -50,7 +50,7 @@ const ProductCard = ({ product }) => {
   const cartInfo = useSelector((state) => state.cart);
   const { cart } = cartInfo;
   const addItem = (id) => {
-    if (cart.some((cartItem) => cartItem.id === id )) {
+    if (cart.some((cartItem) => cartItem.id === id)) {
       toast({
         description: 'Ten przedmiot jest juz w koszyku. Przejdź do koszyka, by zmienić ilość produktów.',
         status: 'error',
@@ -79,7 +79,7 @@ const ProductCard = ({ product }) => {
           <Image maxH='220px' src={product.image} alt={product.name} roundedTop='lg' />
         </Box>
       </Flex>
-      <Flex flex='1' maxH='5' alignItem='baseline' justify='space-between'>
+      <Flex flex='1' maxH='5' alignItems='baseline' justify='space-between'>
         <Box>
           {product.stock <= 0 && (
             <Badge rounded='full' px='2' fontSize='1em' colorScheme='red' alignSelf='center' marginTop='1.5'>

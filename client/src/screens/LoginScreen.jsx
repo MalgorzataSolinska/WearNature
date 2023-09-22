@@ -95,7 +95,7 @@ const LoginScreen = () => {
                 <Stack spacing='5'>
                   <FormControl>
                     <TextField type='text' name='email' placeholder='Adres email' />
-                    <PasswordTextField type='password' name='password' placeholder='Hasło'/>
+                    <PasswordTextField type='password' name='password' placeholder='Hasło' />
                   </FormControl>
                 </Stack>
                 <Stack spacing='6'>
