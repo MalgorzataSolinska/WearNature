@@ -11,7 +11,7 @@ const CartItem = ({ cartItem }) => {
       <Stack direction='row' spacing='3' width='full'>
         <Image rounded='lg' w='120px' h='120px' fit='contain' src={image} alt={name} draggable='false' loading='lazy' />
         <Box pt='7'>
-          <Stack >
+          <Stack>
             <Text fontWeight='medium'>{name}</Text>
           </Stack>
         </Box>
@@ -21,17 +21,24 @@ const CartItem = ({ cartItem }) => {
         mt={{ base: '4', md: '0' }}
         align={{ base: 'center', md: 'baseline' }}
         justify='space-between'
-        display='flex'>
-        
-            <Select maxW='64px' focusBorderColor={mode('teal.500', 'teal.200')} value={qty} onChange={(e) => {
-                dispatch(addCartItem(id, e.target.value));
-            }}>
-                {[...Array(stock).keys()].map((x)=> (
-                <option key = {x+1} value={x+1}>{x+1}</option>
-                ))}    
-            </Select>
-            <Text fontWeight ='bold'>{price} zł </Text>
-            <CloseButton onClick={() => dispatch(removeCartItem(id))} />
+        display='flex'
+      >
+        <Select
+          maxW='64px'
+          focusBorderColor={mode('teal.500', 'teal.200')}
+          value={qty}
+          onChange={(e) => {
+            dispatch(addCartItem(id, e.target.value));
+          }}
+        >
+          {[...Array(stock).keys()].map((x) => (
+            <option key={x + 1} value={x + 1}>
+              {x + 1}
+            </option>
+          ))}
+        </Select>
+        <Text fontWeight='bold'>{price} zł </Text>
+        <CloseButton onClick={() => dispatch(removeCartItem(id))} />
       </Flex>
     </Flex>
   );

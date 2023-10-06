@@ -28,14 +28,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../redux/actions/userActions';
 import {FiShoppingCart, FiMoon, FiSun} from 'react-icons/fi';
 
+
+const calculateCartItems = (cartState) => {
+  let result = 0;
+  cartState.map((item) => (result += Number(item.qty)));
+  return result;
+};
+
 const ShoppingCartIcon = () => { 
   const cartInfo = useSelector((state) => state.cart);
   const {cart} = cartInfo;
   return ( 
     <Flex> 
       <Icon as={FiShoppingCart} h='5' w='7' alignSelf='center' />
-      {(cart.length > 0) && 
-      <Text as='sub' fontSize='13px' color='red.400' ml='-1' mr='1' fontWeight='extrabold' > {cart.length} </Text>
+      {(calculateCartItems(cart) > 0) && 
+      <Text as='sub' fontSize='13px' color='red.400' ml='-1' mr='1' fontWeight='extrabold' > {calculateCartItems(cart)} </Text>
       }
     </Flex>
   )
@@ -106,10 +113,8 @@ const Navbar = () => {
           </HStack>
           <HStack as='nav' spacing={3} display={{ base: 'none', md: 'flex' }}>
           </HStack>
-          
-         
           <Flex alignItems='center'>
-          <NavLink >
+          <NavLink path={'/cart'}>
             <ShoppingCartIcon/>
           </NavLink >
             <NavLink >
@@ -120,7 +125,6 @@ const Navbar = () => {
                 alignSelf='center'
                 onClick={() => toggleColorMode()}
               />
-              
             </NavLink>
             
 
@@ -150,7 +154,7 @@ const Navbar = () => {
             ) : (
               <>
                 <Button as={ReactLink} to='/registration' p={2} fontSize='sm' fontWeight={400} variant='link'>
-                  Zarejestruj się
+                  Rejestracja
                 </Button>
                 <Button
                   as={ReactLink}
@@ -161,7 +165,7 @@ const Navbar = () => {
                   bg='teal.500'
                   color='white'
                 >
-                  Zaloguj się
+                  Logowanie
                 </Button>
               </>
             )}
@@ -176,7 +180,7 @@ const Navbar = () => {
                 </NavLink>
               ))}
               <NavLink key='sign up' path='/login'>
-                Zaloguj się
+                Logowanie
               </NavLink>
             </Stack>
           </Box>

@@ -71,7 +71,7 @@ const CartScreen = () => {
             <Flex direction='column' align='center' flex='1.5'>
               <CartOrderSummary />
               <HStack mt='6' fontWeight='semibold'>
-                {/* <p> lub </p> */}
+                
                 <Link as={ReactLink} to='/products' color={mode('teal.600', 'teal.200')}>
                   {' '}
                   Kontynuuj zakupy

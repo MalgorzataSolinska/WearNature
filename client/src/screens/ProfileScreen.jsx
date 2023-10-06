@@ -29,8 +29,8 @@ import TextField from '../components/TextField';
 import PasswordTextField from '../components/PasswordTextField';
 import { register } from '../redux/actions/userActions';
 import { updateProfile, resetUpdateSuccess } from '../redux/actions/userActions';
-import { useLocation } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 const ProfileScreen = () => {
   const dispatch = useDispatch();
@@ -42,8 +42,9 @@ const ProfileScreen = () => {
   useEffect(() => {
     if (updateSuccess) {
       toast({ description: 'Zmiany zostały zapisane.', status: 'success', isClosable: true });
+      dispatch(resetUpdateSuccess());
     }
-  });
+  }, [toast, updateSuccess]);
 
   return userInfo ? (
     <Formik
@@ -58,15 +59,22 @@ const ProfileScreen = () => {
         firstName: Yup.string().required('Imię jest wymagane.'),
         lastName: Yup.string().required('Nazwisko jest wymagane.'),
         email: Yup.string().email('Niepoprawny adres email').required('Adres email jest wymagany'),
-        password: Yup.string().min(8, 'Niepoprawne hasło (min 8 znaków) ').required('Hasło jest wymagane'),
+        password: Yup.string()
+          .min(8, 'Niepoprawne hasło (min 8 znaków) ')
+          .required('Hasło jest wymagane')
+          .notOneOf([Yup.ref('oldPassword'), null], 'Nowe hasło musi być inne od dotychczasowego'),
         confirmPassword: Yup.string()
           .min(8, 'Niepoprawne hasło (min 8 znaków) ')
           .required('Hasło jest wymagane')
-          .oneOf([Yup.ref('password'), null], 'Hasła muszą być identyczne'),
+          .oneOf([Yup.ref('password'), null], 'Hasła muszą być identyczne')
+          .notOneOf([Yup.ref('oldPassword'), null], 'Nowe hasło musi być inne od dotychczasowego'),
       })}
       onSubmit={(values) => {
-        dispatch(resetUpdateSuccess());
-        dispatch(updateProfile(userInfo._id, values.firstName, values.lastName, values.email, values.password));
+        if (values.currentPassword !== userInfo.password) {
+          toast({ description: 'Aktualne hasło jest nieprawidłowe.', status: 'error', isClosable: true });
+        } else {
+          dispatch(updateProfile(userInfo._id, values.firstName, values.lastName, values.email, values.password));
+        }
       }}
     >
       {(formik) => (
@@ -77,10 +85,10 @@ const ProfileScreen = () => {
           px={{ base: '4', md: '8', lg: '12' }}
           py={{ base: '6', md: '8', lg: '12' }}
         >
-          <Stack spacing= '10' direction={{ base: 'column', lg: 'row' }} align={{ lg: 'flex-start' }}>
+          <Stack spacing='10' direction={{ base: 'column', lg: 'row' }} align={{ lg: 'flex-start' }}>
             <Stack flex='1.5' mb={{ base: '2xl', md: 'none' }}>
               <Heading fontSize='2xl' fontWeight='extrabold'>
-                Profil użytkownika
+                Profil użytkownika{' '}
               </Heading>
               <Stack spacing='6'>
                 <Stack spacing='6' as='form' onSubmit={formik.handleSubmit}>
@@ -93,17 +101,17 @@ const ProfileScreen = () => {
                       textAlign='center'
                     >
                       <AlertIcon />
-                      <AlertTitle> Przepraszamy! </AlertTitle>
+                      <AlertTitle>Przepraszamy!</AlertTitle>
                       <AlertDescription>{error}</AlertDescription>
                     </Alert>
                   )}
                   <Stack spacing='5'>
                     <FormControl>
-                      <TextField type='text' firstName='firstName' placeholder='Imię' />
-                      <TextField type='text' name='lastName' placeholder='Nazwisko' />
-                      <TextField type='text' name='email' placeholder='Adres email' />
-                      <PasswordTextField type='password' name='password' placeholder='Hasło' />
-                      <PasswordTextField type='password' name='confirmPassword' placeholder='Powtórz hasło' />
+                      <TextField type='text' name='firstName' label='Imię' />
+                      <TextField type='text' name='lastName' label='Nazwisko' />
+                      <TextField type='text' name='email' label='Email' />
+                      <PasswordTextField type='password' name='password' label='Nowe hasło' />
+                      <PasswordTextField type='password' name='confirmPassword' label='Powtórz nowe hasło' />
                     </FormControl>
                   </Stack>
                   <Stack spacing='6'>
@@ -114,20 +122,6 @@ const ProfileScreen = () => {
                 </Stack>
               </Stack>
             </Stack>
-            <Flex direction='column' align='center' flex='1' _dark={{ bg: 'gray.900' }}>
-              <Card>
-                <CardHeader>
-                  <Heading size='md'>User Report </Heading>
-                </CardHeader>
-                <CardBody>
-                  <Stack divider={<StackDivider />} spacing='4'>
-                    <Box pt='2' fontSize='sm'>
-                      Registered on {new Date(userInfo.createdAt).toDateString()}
-                    </Box>
-                  </Stack>
-                </CardBody>
-              </Card>
-            </Flex>
           </Stack>
         </Box>
       )}

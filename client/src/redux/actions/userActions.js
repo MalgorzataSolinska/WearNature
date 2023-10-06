@@ -26,12 +26,11 @@ export const login = (email, password) => async (dispatch) => {
 };
 
 export const logout = () => (dispatch) => {
-  dispatch(resetUpdate());
   localStorage.removeItem('userInfo');
   dispatch(userLogout());
 };
 
-export const register = (firstName, lastName, password, email) => async (dispatch) => {
+export const register = (firstName, lastName, email, password) => async (dispatch) => {
   dispatch(setLoading(true));
   try {
     const config = {

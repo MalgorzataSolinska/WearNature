@@ -37,7 +37,11 @@ const Rating = ({ rating, numberOfReviews }) => {
       </HStack>
       <Text fontSize='md' fontWeight='light' ml='4px'>
         {' '}
-        {`${numberOfReviews} ${numberOfReviews === 0 ? 'Reviews' : numberOfReviews === 1 ? 'Review' : 'Reviews'}`}
+        {`${numberOfReviews} ${numberOfReviews === 0 || numberOfReviews >= 5
+                          ? 'Opinii'
+                          : numberOfReviews === 1
+                          ? 'Opinia'
+                          : 'Opinie'}`}
       </Text>
     </Flex>
   );

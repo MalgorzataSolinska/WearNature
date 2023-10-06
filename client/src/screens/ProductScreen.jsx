@@ -195,7 +195,7 @@ const ProductScreen = () => {
             {product.numberOfReviews > 0 && (
               <Stack>
                 <Text fontSize='xl' fontWeight='bold'>
-                  Reviews
+                  Opinie
                 </Text>
                 <SimpleGrid minChildWidth='300px' spacingX='40px' spacingY='20px'>
                   {product.reviews.map((review) => (
