@@ -12,33 +12,64 @@ import {
   useDisclosure,
   HStack,
 } from '@chakra-ui/react';
+import PayPalButton from './PayPalButton';
 import { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as ReactLink } from 'react-router-dom';
 import { PhoneIcon, EmailIcon, ChatIcon } from '@chakra-ui/icons';
-import { createOrder } from '../redux/actions/orderActions';
+import { createOrder, resetOrder } from '../redux/actions/orderActions';
 import CheckoutItem from './CheckoutItem';
+import { resetCart } from '../redux/actions/cartActions';
+import PaymentSuccessModal from './PaymentSuccessModal';
+import PaymentErrorModal from './PaymentErrorModal';
 
 const CheckoutOrderSummary = () => {
+  const { onClose: onErrorClose, onOpen: onErrorOpen, isOpen: isErrorOpen } = useDisclosure();
+  const { onClose: onSuccessClose, onOpen: onSuccessOpen, isOpen: isSuccessOpen } = useDisclosure();
   const colorMode = mode('gray.600', 'gray.400');
   const standardShipping = Number(9.99).toFixed(2);
   const cartItems = useSelector((state) => state.cart);
   const { cart, subtotal } = cartItems;
   const user = useSelector((state) => state.user);
   const { userInfo } = user;
-  const ShippingInfo = useSelector((state) => state.order);
-  const { error, shippingAddress } = cartItems;
+  const ShippingInformation = useSelector((state) => state.order);
+  const { error, shippingAddress } = ShippingInformation;
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const dispatch = useDispatch();
 
-  const shipping = useCallback(() => (subtotal <= 99.99 ? { standardShipping } : 0.0), [subtotal]);
+  const shipping = useCallback(() => (subtotal <= 99.99 ? standardShipping : 0.0), [subtotal, standardShipping]);
   const total = useCallback(
-    () => Number(shipping() === 0 ? Number(subtotal) : (Number(subtotal) + shipping()).toFixed(2)),
-    [shipping, subtotal]
+    () => Number(shipping() === 0 ? Number(subtotal) : Number(subtotal) + Number(standardShipping)).toFixed(2),
+    [standardShipping, subtotal]
   );
-  const onPaymentSuccess = () => alert('Zamówienie w realizacji');
+
+  useEffect(() => {
+    if (!error) {
+      setButtonDisabled(false);
+    } else {
+      setButtonDisabled(true);
+    }
+  }, [error, shippingAddress, total, shipping, dispatch]);
+
+  const onPaymentSuccess = async (data) => {
+    onSuccessOpen();
+    dispatch(
+      createOrder({
+        orderItems: cart,
+        shippingAddress,
+        paymentMethod: data.paymentSource,
+        paymentDetails: data,
+        shippingPrice: shipping(),
+        totalPrice: total(),
+        userInfo,
+      })
+    );
+    dispatch(resetOrder());
+    dispatch(resetCart());
+  };
+
   const onPaymentError = () => {
-    alert('Problem z płatnością');
+    onErrorOpen();
   };
   return (
     <Stack spacing='8' rounded='xl' padding='8' width='full'>
@@ -76,12 +107,18 @@ const CheckoutOrderSummary = () => {
           <Text fontWeight='semobold' fontSize='lg'>
             Razem z dostawą:
           </Text>
-          <Text fontWeight='extrabold' fontsize='xl'>
+          <Text fontWeight='extrabold' fontSize='xl'>
             {Number(total()).toFixed(2)} zł
           </Text>
         </Flex>
       </Stack>
       <Divider bg={mode('gray.400', 'gray.800')} />
+      <PayPalButton
+        total={total}
+        onPaymentSuccess={onPaymentSuccess}
+        onPaymentError={onPaymentError}
+        disabled={buttonDisabled}
+      />
       <Box align='center'>
         <Text fontSize='small' fontWeight='thin'>
           Masz pytanie lub problem? Skontaktuj się z nami.
@@ -101,6 +138,8 @@ const CheckoutOrderSummary = () => {
           </Flex>
         </Flex>
       </Box>
+      <PaymentErrorModal onClose={onErrorClose} onOpen={onErrorOpen} isOpen={isErrorOpen} />
+      <PaymentSuccessModal onClose={onSuccessClose} onOpen={onSuccessOpen} isOpen={isSuccessOpen} />
     </Stack>
   );
 };

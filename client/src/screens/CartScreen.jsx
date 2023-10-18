@@ -41,23 +41,20 @@ const CartScreen = () => {
           <AlertDescription>
             <Link as={ReactLink} to='/products'>
               {' '}
-              Kliknij, by wrócić do produktów. {' '}
+              Kliknij, by wrócić do produktów.{' '}
             </Link>
           </AlertDescription>
         </Alert>
       ) : (
         <Box
-          maxW={{ base: `3xl`, lg: `7xl` }}
+          minW={{ md: 'xl' }}
+          maxW={{ base: `3xl`, md: '5xl', lg: `7xl` }}
           mx='auto'
-          px={{ base: '4', md: '8', lg: '12' }}
-          py={{ base: '6', md: '8', lg: '12' }}
+          px={{ base: '6', md: '12', lg: '12' }}
+          py={{ base: '6', md: '12', lg: '12' }}
         >
-          <Stack
-            direction={{ base: 'column', lg: 'row' }}
-            align={{ lg: 'flex-start' }}
-            spacing={{ base: '8', md: '16' }}
-          >
-            <Stack spacing={{ base: '8', md: '10' }} flex='2'>
+          <Stack direction={{ base: 'column', md: 'column', lg: 'row' }} align={{ lg: 'flex-start' }} spacing={'16'}>
+            <Stack spacing={{ base: '10', lg: '10' }} flex='2'>
               <Heading fontSize='2xl' fontWeight='extrabold'>
                 Twój koszyk
               </Heading>
@@ -71,7 +68,6 @@ const CartScreen = () => {
             <Flex direction='column' align='center' flex='1.5'>
               <CartOrderSummary />
               <HStack mt='6' fontWeight='semibold'>
-                
                 <Link as={ReactLink} to='/products' color={mode('teal.600', 'teal.200')}>
                   {' '}
                   Kontynuuj zakupy

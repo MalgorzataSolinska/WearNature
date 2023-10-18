@@ -8,7 +8,12 @@ const orderSchema = new mongoose.Schema(
       required: true,
       ref: 'User',
     },
-    username: {
+    firstName: {
+      type: String,
+      required: true,
+      ref: 'User',
+    },
+    lastName: {
       type: String,
       required: true,
       ref: 'User',
@@ -22,17 +27,19 @@ const orderSchema = new mongoose.Schema(
       {
         name: { type: String, required: true },
         qty: { type: Number, required: true },
-        image: { type: Number, required: true },
+        image: { type: String, required: true },
         price: { type: Number, required: true },
-        productId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Product' },
+        id: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Product' },
       },
     ],
     shippingAddress: {
-      phoneNumber: { type: Number, required: true },
-      street: { type: String, required: true },
+      firstName: { type: String, required: true },
+      lastName: { type: String, required: true },
+      phoneNumber: { type: String, required: true },
+      streetName: { type: String, required: true },
       streetNumber: { type: String, required: true },
-      city: { type: String, required: true },
       postalCode: { type: String, required: true },
+      city: { type: String, required: true },
       country: { type: String, required: true },
     },
     paymentMethod: {

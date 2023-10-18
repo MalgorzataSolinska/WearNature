@@ -13,7 +13,8 @@ const createOrder = asyncHandler(async (req, res) => {
     const order = new Order({
       orderItems,
       user: userInfo._id,
-      username: userInfo.name,
+      firstName: userInfo.firstName,
+      lastName: userInfo.lastName,
       email: userInfo.email,
       shippingAddress,
       paymentMethod,

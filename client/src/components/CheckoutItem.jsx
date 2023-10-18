@@ -1,7 +1,18 @@
 import React from 'react';
-import { Flex, Select, useColorModeValue as mode, Image, Box, Text, Spacer, Divider } from '@chakra-ui/react';
+import {
+  CloseButton,
+  Flex,
+  Select,
+  useColorModeValue as mode,
+  Image,
+  Box,
+  Text,
+  Spacer,
+  Divider,
+  Stack,
+} from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
-import { addCartItem } from '../redux/actions/cartActions';
+import { addCartItem, removeCartItem } from '../redux/actions/cartActions';
 
 const CheckoutItem = ({ cartItem }) => {
   const { name, image, price, stock, qty, id } = cartItem;
@@ -42,8 +53,10 @@ const CheckoutItem = ({ cartItem }) => {
           </Select>
         </Flex>
         <Box>
-          {' '}
-          <Text fontWeight='bold'>{price} zł</Text>
+        <Flex direction='column' align='end'  mx='2' >
+            <Text mb='20' fontWeight='bold'>{price} zł</Text>
+            <CloseButton onClick={() => dispatch(removeCartItem(id))} />
+          </Flex>
         </Box>
       </Flex>
       <Divider bg={mode('gray.400', 'gray.800')} />

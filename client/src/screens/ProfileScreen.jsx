@@ -107,7 +107,7 @@ const ProfileScreen = () => {
                   )}
                   <Stack spacing='5'>
                     <FormControl>
-                      <TextField type='text' name='firstName' label='Imię' />
+                      <TextField type='text' name='firstName' label='Imię'/>
                       <TextField type='text' name='lastName' label='Nazwisko' />
                       <TextField type='text' name='email' label='Email' />
                       <PasswordTextField type='password' name='password' label='Nowe hasło' />

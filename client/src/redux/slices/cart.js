@@ -47,10 +47,14 @@ export const cartSlice = createSlice({
       state.loading=false; 
       state.error = null;
     },
+    clearCart: (state) => { 
+      localStorage.removeItem('cartItems'); 
+      state.cart=[];
+    }
   },
 });
 
-export const { setLoading, setError, cartItemAdd, cartItemRemoval } = cartSlice.actions;
+export const { setLoading, setError, cartItemAdd, cartItemRemoval, clearCart } = cartSlice.actions;
 export default cartSlice.reducer;
 
 export const productsSelector = (state) => state.cart;
