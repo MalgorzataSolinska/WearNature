@@ -13,7 +13,7 @@ const protectRoute = asyncHandler(async (req, res, next) => {
 
       next();
     } catch (error) {
-      res.status.apply(401);
+      res.status(401);
       throw new Error('Niepoprawny token autoryzacji.');
     }
   }

@@ -26,8 +26,8 @@ export const createOrder = (order) => async (dispatch, getState) => {
   } catch (error) {
     dispatch(
       setError(
-        error.response && error.response.data.message
-          ? error.response.data.message
+        error.response && error.response.data.error
+          ? error.response.data.error
           : error.message
           ? error.message
           : 'An unexpected error has occured. Please try again later.'

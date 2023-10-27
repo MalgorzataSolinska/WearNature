@@ -26,8 +26,7 @@ import { MdLocalShipping, MdLogout } from 'react-icons/md';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../redux/actions/userActions';
-import {FiShoppingCart, FiMoon, FiSun} from 'react-icons/fi';
-
+import { FiShoppingCart, FiMoon, FiSun } from 'react-icons/fi';
 
 const calculateCartItems = (cartState) => {
   let result = 0;
@@ -35,23 +34,23 @@ const calculateCartItems = (cartState) => {
   return result;
 };
 
-const ShoppingCartIcon = () => { 
+const ShoppingCartIcon = () => {
   const cartInfo = useSelector((state) => state.cart);
-  const {cart} = cartInfo;
-  return ( 
-    <Flex> 
+  const { cart } = cartInfo;
+  return (
+    <Flex>
       <Icon as={FiShoppingCart} h='5' w='7' alignSelf='center' />
-      {(calculateCartItems(cart) > 0) && 
-      <Text as='sub' fontSize='13px' color='red.400' ml='-1' mr='1' fontWeight='extrabold' > {calculateCartItems(cart)} </Text>
-      }
+      {calculateCartItems(cart) > 0 && (
+        <Text as='sub' fontSize='13px' color='red.400' ml='-1' mr='1' fontWeight='extrabold'>
+          {' '}
+          {calculateCartItems(cart)}{' '}
+        </Text>
+      )}
     </Flex>
-  )
-}
+  );
+};
 
-
-const links = [
-  { linkName: 'Produkty', path: '/products' }
-];
+const links = [{ linkName: 'Produkty', path: '/products' }];
 
 const NavLink = ({ path, children }) => (
   <Link
@@ -111,60 +110,59 @@ const Navbar = () => {
               ))}
             </HStack>
           </HStack>
-          <HStack as='nav' spacing={3} display={{ base: 'none', md: 'flex' }}>
-          </HStack>
+          <HStack as='nav' spacing={3} display={{ base: 'none', md: 'flex' }}></HStack>
           <Flex alignItems='center'>
-          <NavLink path={'/cart'}>
-            <ShoppingCartIcon/>
-          </NavLink >
-            <NavLink >
+            <NavLink path={'/cart'}>
+              <ShoppingCartIcon />
+            </NavLink>
+            <NavLink>
               <Icon
                 as={colorMode === 'light' ? FiMoon : FiSun}
-                h='5' w='7'
+                h='5'
+                w='7'
                 mt='3px'
                 alignSelf='center'
                 onClick={() => toggleColorMode()}
               />
             </NavLink>
-            
 
             {userInfo ? (
               <>
                 <Menu>
                   <MenuButton px='5' py='2' transition='all 0.5s' as={Button}>
                     {userInfo.firstName} <ChevronDownIcon />
-                    </MenuButton>
-                    <MenuList>
-                      <MenuItem as={ReactLink} to='/profile'>
-                        <CgProfile />
-                        <Text ml='2'> Profil użytkownika </Text>
-                      </MenuItem>
-                      <MenuItem as={ReactLink} to='/your-orders'>
-                        <MdLocalShipping />
-                        <Text ml='2'> Twoje Zamówienia </Text>
-                      </MenuItem>
-                      <MenuDivider />
-                      <MenuItem onClick={logoutHandler}>
-                        <MdLogout />
-                        <Text ml='2'> Wyloguj się </Text>
-                      </MenuItem>
-                    </MenuList>
+                  </MenuButton>
+                  <MenuList>
+                    <MenuItem as={ReactLink} to='/profile'>
+                      <CgProfile />
+                      <Text ml='2'> Profil użytkownika </Text>
+                    </MenuItem>
+                    <MenuItem as={ReactLink} to='/user-orders'>
+                      <MdLocalShipping />
+                      <Text ml='2'> Twoje Zamówienia </Text>
+                    </MenuItem>
+                    <MenuDivider />
+                    <MenuItem onClick={logoutHandler}>
+                      <MdLogout />
+                      <Text ml='2'> Wyloguj się </Text>
+                    </MenuItem>
+                  </MenuList>
                 </Menu>
               </>
             ) : (
               <>
-                <Button as={ReactLink} to='/registration' p={2} fontSize='sm' fontWeight={400} variant='link'>
-                  Rejestracja
-                </Button>
                 <Button
                   as={ReactLink}
-                  to='/login'
-                  m={2}
+                  to='/registration'
+                  p={2}
+                  fontSize='sm'
+                  fontWeight={400}
+                  variant='link'
                   display={{ base: 'none', md: 'inline-flex' }}
-                  _hover={{ bg: 'gray.300' }}
-                  bg='teal.500'
-                  color='white'
                 >
+                  Rejestracja
+                </Button>
+                <Button as={ReactLink} to='/login' m={2} _hover={{ bg: 'gray.300' }} bg='teal.500' color='white'>
                   Logowanie
                 </Button>
               </>
@@ -179,9 +177,6 @@ const Navbar = () => {
                   {link.linkName}
                 </NavLink>
               ))}
-              <NavLink key='sign up' path='/login'>
-                Logowanie
-              </NavLink>
             </Stack>
           </Box>
         ) : null}

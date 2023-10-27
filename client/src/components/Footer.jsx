@@ -4,12 +4,13 @@ import { FaGithub } from 'react-icons/fa';
 const Footer = () => {
   return (
     <Box as='footer' w='100%' py='5' bg={useColorModeValue('gray.100', 'gray.900')}>
-      <HStack ml='4' spacing={{ base: '5', md: '8', lg: '10' }}>
+      
+      <Stack  direction={{ base: 'column', lg: 'row' }} align='flex-start' ml='4' spacing={{ base: '4', md: '8', lg: '10' }}>
         <Button variant='link'> Dane firmy </Button>
         <Button variant='link'> Regulamin </Button>
         <Button variant='link'> Polityka prywatności </Button>
         <Button variant='link'> Pomoc </Button>
-      </HStack>
+      </Stack>
 
       <Flex ml='4' justifyContent='space-between' alignItems='center'>
         <Text fontSize='smaller' color='gray' display>

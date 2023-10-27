@@ -19,7 +19,7 @@ const PaymentErrorModal = ({ isOpen, onClose }) => {
         <ModalOverlay />
         <ModalContent>
           <ModalBody>
-            <Wrap justify='center' direction='column' align='center' mt='20px'}>
+            <Wrap justify='center' direction='column' align='center' mt='20px'>
               <Alert
               h='200px'
                 status='error'

@@ -40,7 +40,7 @@ const CheckoutOrderSummary = () => {
   const shipping = useCallback(() => (subtotal <= 99.99 ? standardShipping : 0.0), [subtotal, standardShipping]);
   const total = useCallback(
     () => Number(shipping() === 0 ? Number(subtotal) : Number(subtotal) + Number(standardShipping)).toFixed(2),
-    [standardShipping, subtotal]
+    [standardShipping, subtotal, shipping]
   );
 
   useEffect(() => {
@@ -64,6 +64,7 @@ const CheckoutOrderSummary = () => {
         userInfo,
       })
     );
+
     dispatch(resetOrder());
     dispatch(resetCart());
   };

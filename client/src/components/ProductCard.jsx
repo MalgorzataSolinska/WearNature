@@ -80,7 +80,9 @@ const ProductCard = ({ product }) => {
     >
       <Flex h='300' alignSelf='center'>
         <Box>
+        <Link as={ReactLink} to={`/product/${product._id}`} pt='1' cursor='pointer'>
           <Image maxH='220px' src={product.image} alt={product.name} roundedTop='lg' />
+          </Link>
         </Box>
       </Flex>
       <Flex flex='1' maxH='5' alignItems='baseline' justify='space-between'>

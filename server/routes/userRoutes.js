@@ -3,7 +3,7 @@ import User from '../models/User.js';
 import asyncHandler from 'express-async-handler';
 import jwt from 'jsonwebtoken';
 import protectRoute from '../middleware/authMiddleware.js';
-
+import Order from '../models/Order.js';
 const userRoutes = express.Router();
 //TODO: redefine expiredIn
 const genToken = (id) => {
@@ -23,8 +23,7 @@ const loginUser = asyncHandler(async (req, res) => {
       token: genToken(user._id),
     });
   } else {
-    res.status(401);
-    throw new Error('Niepoprawny email lub hasło.');
+    res.status(401).json({ error: 'Niepoprawny email lub hasło.' });
   }
 });
 
@@ -33,8 +32,7 @@ const registerUser = asyncHandler(async (req, res) => {
   const userExists = await User.findOne({ email });
 
   if (userExists) {
-    res.status(400);
-    throw new Error('Istnieje już konto zarejestrowane na ten adres email.');
+    res.status(400).json({ error: 'Istnieje już konto zarejestrowane na ten adres email.' });
   }
 
   const user = await User.create({
@@ -55,8 +53,7 @@ const registerUser = asyncHandler(async (req, res) => {
       createdAt: user.createdAt,
     });
   } else {
-    res.json(400);
-    throw new Error('Wprowadzone dane są niepoprawne. ');
+    res.json(400).json({ error: 'Wprowadzone dane są niepoprawne. ' });
   }
 });
 
@@ -80,13 +77,21 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       createdAt: updatedUser.createdAt,
     });
   } else {
-    res.status(404);
-    throw new Error('Użytkownik nie został znaleziony.');
+    res.status(404).json({ error: 'Użytkownik nie został znaleziony.' });
+  }
+});
+
+const getUserOrders = asyncHandler(async (req, res) => {
+  const orders = await Order.find({ user: req.params.id });
+  if (orders) {
+    res.json(orders);
+  } else {
+    res.status(404).json({ error: 'Brak historii zamówień.' });
   }
 });
 
 userRoutes.route('/login').post(loginUser);
 userRoutes.route('/register').post(registerUser);
 userRoutes.route('/profile/:id').put(protectRoute, updateUserProfile);
-
+userRoutes.route('/:id').get(protectRoute, getUserOrders);
 export default userRoutes;

@@ -47,7 +47,7 @@ const PaymentSuccessModal = ({ isOpen, onClose }) => {
                   Płatność zakończona sukcesem!
                 </AlertTitle>
                 <Stack mt='20px' minW='200px'>
-                  <Button colorScheme='teal' colorschema='teal' variant='outline' as={ReactLink} to='/your-orders'>
+                  <Button colorScheme='teal' colorschema='teal' variant='outline' as={ReactLink} to='/user-orders'>
                     {' '}
                     Twoje zamówienia
                   </Button>
