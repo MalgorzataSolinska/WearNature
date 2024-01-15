@@ -235,7 +235,7 @@ const ProductScreen = () => {
                     <Wrap>
                       <HStack spacing='2px'>
                         <Button variant='outline' onClick={() => setRating(1)}>
-                          <StarIcon color={rating >= 1 ? 'yellow.400': 'gray.200' }/>
+                          <StarIcon color={rating >= 1 ? 'yellow.400' : 'gray.200'} />
                         </Button>
                         <Button variant='outline' onClick={() => setRating(2)}>
                           <StarIcon color={rating >= 2 ? 'yellow.400' : 'gray.200'} />
@@ -279,7 +279,7 @@ const ProductScreen = () => {
                 </Text>
                 <SimpleGrid minChildWidth='300px' spacingX='40px' spacingY='20px'>
                   {product.reviews.map((review) => (
-                    <Box key={review.id}>
+                    <Box key={review._id}>
                       <Flex spacing='2px' alignItems='center'>
                         <StarIcon color='yellow.400' />
                         <StarIcon color={review.rating >= 2 ? 'yellow.400' : 'gray.200'} />

@@ -38,11 +38,14 @@ const ProfileScreen = () => {
   const { userInfo, error, loading, updateSuccess } = user;
   const location = useLocation();
   const toast = useToast();
+ 
 
   useEffect(() => {
     if (updateSuccess) {
+      
       toast({ description: 'Zmiany zostały zapisane.', status: 'success', isClosable: true });
       dispatch(resetUpdateSuccess());
+      
     }
   }, [toast, updateSuccess]);
 
@@ -52,29 +55,18 @@ const ProfileScreen = () => {
         firstName: userInfo.firstName,
         lastName: userInfo.lastName,
         email: userInfo.email,
-        password: '',
-        confirmPassword: '',
+        currentPassword: '',
       }}
       validationSchema={Yup.object({
         firstName: Yup.string().required('Imię jest wymagane.'),
         lastName: Yup.string().required('Nazwisko jest wymagane.'),
         email: Yup.string().email('Niepoprawny adres email').required('Adres email jest wymagany'),
-        password: Yup.string()
-          .min(8, 'Niepoprawne hasło (min 8 znaków) ')
-          .required('Hasło jest wymagane')
-          .notOneOf([Yup.ref('oldPassword'), null], 'Nowe hasło musi być inne od dotychczasowego'),
-        confirmPassword: Yup.string()
-          .min(8, 'Niepoprawne hasło (min 8 znaków) ')
-          .required('Hasło jest wymagane')
-          .oneOf([Yup.ref('password'), null], 'Hasła muszą być identyczne')
-          .notOneOf([Yup.ref('oldPassword'), null], 'Nowe hasło musi być inne od dotychczasowego'),
+        currentPassword: Yup.string()
+          .min(8, 'Niepoprawne hasło (min 8 znaków)')
+          .required('Chcąc zapisać zmiany, musisz wprowadzić hasło.'),
       })}
       onSubmit={(values) => {
-        if (values.currentPassword !== userInfo.password) {
-          toast({ description: 'Aktualne hasło jest nieprawidłowe.', status: 'error', isClosable: true });
-        } else {
-          dispatch(updateProfile(userInfo._id, values.firstName, values.lastName, values.email, values.password));
-        }
+        dispatch(updateProfile(userInfo._id, values.firstName, values.lastName, values.email, values.currentPassword));
       }}
     >
       {(formik) => (
@@ -107,11 +99,10 @@ const ProfileScreen = () => {
                   )}
                   <Stack spacing='5'>
                     <FormControl>
-                      <TextField type='text' name='firstName' label='Imię'/>
+                      <TextField type='text' name='firstName' label='Imię' />
                       <TextField type='text' name='lastName' label='Nazwisko' />
                       <TextField type='text' name='email' label='Email' />
-                      <PasswordTextField type='password' name='password' label='Nowe hasło' />
-                      <PasswordTextField type='password' name='confirmPassword' label='Powtórz nowe hasło' />
+                      <PasswordTextField type='password' name='currentPassword' label='Aktualne hasło' />
                     </FormControl>
                   </Stack>
                   <Stack spacing='6'>

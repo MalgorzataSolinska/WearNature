@@ -24,6 +24,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, Link as ReactLink, useLocation } from 'react-router-dom';
 import PasswordTextField from '../components/PasswordTextField';
 import TextField from '../components/TextField';
+import PasswordForgottenForm from '../components/PasswordForgottenForm';
 import { login } from '../redux/actions/userActions';
 
 const LoginScreen = () => {
@@ -34,6 +35,8 @@ const LoginScreen = () => {
   const toast = useToast();
   const user = useSelector((state) => state.user);
   const { loading, error, userInfo } = user;
+  const [showPasswordReset, setShowPasswordReset] = useState(false);
+
   const boxBR = useBreakpointValue({ base: 'transparent', md: 'bg-surface' });
 
   useEffect(() => {
@@ -43,16 +46,15 @@ const LoginScreen = () => {
       } else {
         navigate(redirect);
       }
-      toast({ description: 'Logowanie pomyślne', status: 'success', isClosable: true });
     }
-  }, [userInfo, redirect, error, navigate, location.state, toast]);
+  }, [userInfo, redirect, error, navigate, location.state,  showPasswordReset]);
 
   return (
     <Formik
       initialValues={{ email: '', password: '' }}
       validationSchema={Yup.object({
         email: Yup.string().email('Niepoprawny adres email').required('Adres email jest wymagany'),
-        password: Yup.string().min(8, 'Niepoprawne hasło (min 8 znaków) ').required('Hasło jest wymagane '),
+        password: Yup.string().min(8, 'Niepoprawne hasło (min 8 znaków) ').required('Hasło jest wymagane'),
       })}
       onSubmit={(values) => {
         dispatch(login(values.email, values.password));
@@ -96,12 +98,24 @@ const LoginScreen = () => {
                   <FormControl>
                     <TextField type='text' name='email' placeholder='Adres email' />
                     <PasswordTextField type='password' name='password' placeholder='Hasło' />
+                    <Button
+                      
+                      onClick={() => setShowPasswordReset(!showPasswordReset)}
+                      size='sm'
+                      textColor='teal'
+                      variant='ghost'
+                    >
+                      Nie pamiętasz hasła?
+                    </Button>
+                    {showPasswordReset && <PasswordForgottenForm />}
                   </FormControl>
                 </Stack>
                 <Stack spacing='6'>
+                  {!showPasswordReset && (
                   <Button colorScheme='red' size='lg' fontSize='md' isLoading={loading} type='submit'>
                     Zaloguj się
                   </Button>
+                  )}
                 </Stack>
               </Stack>
             </Box>

@@ -1,46 +1,17 @@
-import { RadioGroup } from '@chakra-ui/react';
 import React from 'react';
-import { BiPackage, BiSupport, BiSend } from 'react-icons/bi';
+import { BiPackage, BiSupport } from 'react-icons/bi';
 import { FiTruck } from 'react-icons/fi';
-import {
-  Divider,
-  useColorModeValue as mode,
-  Box,
-  Heading,
-  VStack,
-  FormControl,
-  Flex,
-  Stack,
-  Text,
-  Radio,
-} from '@chakra-ui/react';
+import { Divider, useColorModeValue as mode, Box, VStack, FormControl, Flex, Stack, Text } from '@chakra-ui/react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import TextField from './TextField';
-import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { useState } from 'react';
-import { setShippingAddress, setShippingAddressError } from '../redux/actions/orderActions';
-import { color } from 'framer-motion';
 
 const ShippingInformation = () => {
   const user = useSelector((state) => state.user);
   const { userInfo } = user;
-  const dispatch = useDispatch();
-  const [formStateChanged, setFormStateChanged] = useState(false);
-  const colorMode = mode('gray.600', 'gray.400');
 
-  const setErrorState = (input, data) => {
-    if (!input) {
-      dispatch(setShippingAddress(data));
-    }
-    if ((!formStateChanged && !input) || (formStateChanged && input)) {
-      return;
-    } else {
-      setFormStateChanged(input);
-      dispatch(setShippingAddressError(input));
-    }
-  };
+  const colorMode = mode('gray.600', 'gray.400');
 
   return (
     <>
@@ -51,7 +22,7 @@ const ShippingInformation = () => {
           phoneNumber: '',
           streetName: '',
           streetNumber: '',
-          postalCode: ' ',
+          postalCode: '',
           city: '',
           country: '',
         }}
@@ -72,13 +43,7 @@ const ShippingInformation = () => {
       >
         {(formik) => (
           <VStack as='form'>
-            <FormControl
-              onChange={
-                Object.keys(formik.errors).length === 0 && Object.keys(formik.touched).length >= 2
-                  ? setErrorState(false, formik.values)
-                  : setErrorState(true)
-              }
-            >
+            <FormControl>
               <Flex>
                 <Box flex='1' mr='10'>
                   <TextField name='firstName' label='Imię' placeholder='np. Jan' />

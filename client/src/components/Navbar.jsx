@@ -1,4 +1,7 @@
 import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
   Box,
   Flex,
   HStack,
@@ -17,6 +20,8 @@ import {
   Menu,
   MenuList,
   MenuDivider,
+  AlertDescription,
+  Spacer,
 } from '@chakra-ui/react';
 import { Link as ReactLink } from 'react-router-dom';
 import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon, ChevronDownIcon } from '@chakra-ui/icons';
@@ -27,6 +32,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../redux/actions/userActions';
 import { FiShoppingCart, FiMoon, FiSun } from 'react-icons/fi';
+import { useState, useEffect } from 'react';
 
 const calculateCartItems = (cartState) => {
   let result = 0;
@@ -72,10 +78,15 @@ const Navbar = () => {
   const { userInfo } = user;
   const dispatch = useDispatch();
   const toast = useToast();
+  const [showBanner, setShowBanner] = useState(userInfo ? !userInfo.active : false);
 
+  useEffect(() => {
+    if (userInfo && !userInfo.active) {
+      setShowBanner(true);
+    }
+  }, [dispatch, userInfo]);
   const logoutHandler = () => {
     dispatch(logout());
-    toast({ description: 'Zostałeś wylogowany', status: 'success', isClosable: true });
   };
   return (
     <Stack>
@@ -84,7 +95,6 @@ const Navbar = () => {
           <Text fontSize='sm'>Darmowa dostawa do zamówień powyżej 100 zł</Text>
         </Flex>
       </Box>
-
       <Box bg={useColorModeValue('gray.100', 'gray.900')} px={3}>
         <Flex h={16} alignItems='center' justifyContent='space-between'>
           <IconButton
@@ -181,6 +191,17 @@ const Navbar = () => {
           </Box>
         ) : null}
       </Box>
+      {userInfo && !userInfo.active && showBanner && (
+        <Box>
+          <Alert status='warning'>
+            <AlertIcon />
+            <AlertTitle> Adres email nie został zweryfikowany. </AlertTitle>
+            <AlertDescription> Sprawdź pocztę i potwierdź swój adres email.</AlertDescription>
+            <Spacer />
+          </Alert>
+        </Box>
+      )}
+      ;
     </Stack>
   );
 };

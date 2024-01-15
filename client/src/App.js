@@ -11,7 +11,8 @@ import RegistrationScreen from './screens/RegistrationScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import CheckoutScreen from './screens/CheckoutScreen';
 import UserOrdersScreen from './screens/UserOrdersScreen';
-
+import EmailVerificationScreen from './screens/EmailVerificationScreen';
+import PasswordResetScreen from './screens/PasswordResetScreen';
 
 function App() {
   return (
@@ -29,6 +30,8 @@ function App() {
             <Route path='/profile' element={<ProfileScreen />}></Route>
             <Route path='/checkout' element={<CheckoutScreen />}></Route>
             <Route path='/user-orders' element={<UserOrdersScreen />}></Route>
+            <Route path='/email-verify/:token' element={<EmailVerificationScreen />}></Route>
+            <Route path='/password-reset/:token' element={<PasswordResetScreen/>}></Route>
           </Routes>
         </main>
         <Footer />

@@ -1,5 +1,10 @@
 import React from 'react';
 import {
+  Alert, 
+  AlertIcon, 
+  AlertTitle, 
+  AlertDescription, 
+  Spacer,
   Box,
   Flex,
   Heading,
@@ -49,7 +54,7 @@ const CheckoutOrderSummary = () => {
     } else {
       setButtonDisabled(true);
     }
-  }, [error, shippingAddress, total, shipping, dispatch]);
+  }, [error, shippingAddress, total, shipping, dispatch, userInfo]);
 
   const onPaymentSuccess = async (data) => {
     onSuccessOpen();
@@ -114,12 +119,19 @@ const CheckoutOrderSummary = () => {
         </Flex>
       </Stack>
       <Divider bg={mode('gray.400', 'gray.800')} />
-      <PayPalButton
+      {userInfo.active ? (<PayPalButton
         total={total}
         onPaymentSuccess={onPaymentSuccess}
         onPaymentError={onPaymentError}
         disabled={buttonDisabled}
-      />
+      />) :   
+      <Box>
+      <Alert status='warning'>
+        <AlertIcon />
+        <AlertTitle> Aby dokończyć zakupy potwierdź adres email. </AlertTitle>
+        <Spacer />
+      </Alert>
+    </Box> }
       <Box align='center'>
         <Text fontSize='small' fontWeight='thin'>
           Masz pytanie lub problem? Skontaktuj się z nami.
