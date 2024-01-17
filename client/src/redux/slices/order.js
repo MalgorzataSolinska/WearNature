@@ -26,10 +26,13 @@ export const orderSlice = createSlice({
     clearOrder: (state) => {
       state = initialState;
     },
+    setServerResponseMsg: (state, {payload}) => { 
+      state.serverMsg = payload; 
+    }, 
   },
 });
 
-export const { setLoading, setError, shippingAddressAdd, clearOrder } = orderSlice.actions;
+export const { setLoading, setError, shippingAddressAdd, clearOrder,setServerResponseMsg } = orderSlice.actions;
 export default orderSlice.reducer;
 
 export const orderSelector = (state) => state.order;

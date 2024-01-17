@@ -1,4 +1,4 @@
-import { IconButton, Flex, Stack, Text, HStack, Box, Button, useColorModeValue } from '@chakra-ui/react';
+import { IconButton, Flex, Stack, Text, Box, Button, useColorModeValue } from '@chakra-ui/react';
 import { FaGithub } from 'react-icons/fa';
 
 const Footer = () => {

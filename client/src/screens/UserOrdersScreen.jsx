@@ -14,13 +14,11 @@ import {
   Td,
   Tbody,
   Thead,
-  Button,
   ListItem,
   UnorderedList,
   AlertTitle,
   Wrap,
   HStack,
-  OrderedList,
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserOrders } from '../redux/actions/userActions';
@@ -45,13 +43,13 @@ const UserOrdersScreen = () => {
     if (userInfo) {
       dispatch(getUserOrders());
     }
-  }, []);
+  }, [dispatch, userInfo]);
 
   return userInfo ? (
     <>
       {loading ? (
-        <Wrap justify='center' direction='column' align='center' mt='20px' minH='100vh' >
-          <Stack direction='row' spacing={4} >
+        <Wrap justify='center' direction='column' align='center' mt='20px' minH='100vh'>
+          <Stack direction='row' spacing={4}>
             <Spinner mt={10} thickness='7px' speed='1s' emptyColor='grey.200' color='orange.600' size='xl' />{' '}
           </Stack>
         </Wrap>

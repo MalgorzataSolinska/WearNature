@@ -1,6 +1,6 @@
 import { Box, Flex, Heading, HStack, Icon, Image, Link, Skeleton, Stack, useColorModeValue } from '@chakra-ui/react';
 import { FaArrowRight } from 'react-icons/fa';
-import { Link as ReactLink, NavLink } from 'react-router-dom';
+import { Link as ReactLink } from 'react-router-dom';
 
 const LandingScreen = () => (
   <Box maxW='8xl' mx='auto' px={{ base: '0', lg: '12' }} py={{ base: '0', lg: '12' }}>

@@ -14,7 +14,6 @@ import {
   Stack,
   useColorModeValue,
   useColorMode,
-  useToast,
   MenuButton,
   MenuItem,
   Menu,
@@ -24,7 +23,7 @@ import {
   Spacer,
 } from '@chakra-ui/react';
 import { Link as ReactLink } from 'react-router-dom';
-import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon, ChevronDownIcon } from '@chakra-ui/icons';
+import { HamburgerIcon, CloseIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import { FaCottonBureau } from 'react-icons/fa';
 import { CgProfile } from 'react-icons/cg';
 import { MdLocalShipping, MdLogout } from 'react-icons/md';
@@ -77,7 +76,6 @@ const Navbar = () => {
   const user = useSelector((state) => state.user);
   const { userInfo } = user;
   const dispatch = useDispatch();
-  const toast = useToast();
   const [showBanner, setShowBanner] = useState(userInfo ? !userInfo.active : false);
 
   useEffect(() => {

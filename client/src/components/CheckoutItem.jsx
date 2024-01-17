@@ -9,7 +9,6 @@ import {
   Text,
   Spacer,
   Divider,
-  Stack,
 } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 import { addCartItem, removeCartItem } from '../redux/actions/cartActions';

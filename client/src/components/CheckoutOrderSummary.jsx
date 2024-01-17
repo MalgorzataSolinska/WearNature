@@ -1,9 +1,8 @@
 import React from 'react';
 import {
-  Alert, 
-  AlertIcon, 
-  AlertTitle, 
-  AlertDescription, 
+  Alert,
+  AlertIcon,
+  AlertTitle,
   Spacer,
   Box,
   Flex,
@@ -11,8 +10,6 @@ import {
   Stack,
   Text,
   useColorModeValue as mode,
-  Badge,
-  Link,
   Divider,
   useDisclosure,
   HStack,
@@ -20,7 +17,6 @@ import {
 import PayPalButton from './PayPalButton';
 import { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link as ReactLink } from 'react-router-dom';
 import { PhoneIcon, EmailIcon, ChatIcon } from '@chakra-ui/icons';
 import { createOrder, resetOrder } from '../redux/actions/orderActions';
 import CheckoutItem from './CheckoutItem';
@@ -119,19 +115,22 @@ const CheckoutOrderSummary = () => {
         </Flex>
       </Stack>
       <Divider bg={mode('gray.400', 'gray.800')} />
-      {userInfo.active ? (<PayPalButton
-        total={total}
-        onPaymentSuccess={onPaymentSuccess}
-        onPaymentError={onPaymentError}
-        disabled={buttonDisabled}
-      />) :   
-      <Box>
-      <Alert status='warning'>
-        <AlertIcon />
-        <AlertTitle> Aby dokończyć zakupy potwierdź adres email. </AlertTitle>
-        <Spacer />
-      </Alert>
-    </Box> }
+      {userInfo.active ? (
+        <PayPalButton
+          total={total}
+          onPaymentSuccess={onPaymentSuccess}
+          onPaymentError={onPaymentError}
+          disabled={buttonDisabled}
+        />
+      ) : (
+        <Box>
+          <Alert status='warning'>
+            <AlertIcon />
+            <AlertTitle> Aby dokończyć zakupy potwierdź adres email. </AlertTitle>
+            <Spacer />
+          </Alert>
+        </Box>
+      )}
       <Box align='center'>
         <Text fontSize='small' fontWeight='thin'>
           Masz pytanie lub problem? Skontaktuj się z nami.

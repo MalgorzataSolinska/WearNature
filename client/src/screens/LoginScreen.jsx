@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Box,
   Button,
-  Checkbox,
   Container,
   FormControl,
   Heading,
@@ -10,12 +9,10 @@ import {
   Stack,
   Text,
   useBreakpointValue,
-  useColorModeValue,
   Alert,
   AlertIcon,
   AlertTitle,
   AlertDescription,
-  useToast,
 } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import { Formik } from 'formik';
@@ -32,7 +29,6 @@ const LoginScreen = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const redirect = '/products';
-  const toast = useToast();
   const user = useSelector((state) => state.user);
   const { loading, error, userInfo } = user;
   const [showPasswordReset, setShowPasswordReset] = useState(false);

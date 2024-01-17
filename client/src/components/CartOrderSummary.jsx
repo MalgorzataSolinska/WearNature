@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Flex, Heading, Stack, Text, useColorModeValue as mode, Badge, HStack } from '@chakra-ui/react';
+import { Button, Flex, Heading, Stack, Text, useColorModeValue as mode, HStack } from '@chakra-ui/react';
 import { useState } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 import { useSelector } from 'react-redux';

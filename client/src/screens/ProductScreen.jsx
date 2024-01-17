@@ -5,7 +5,6 @@ import {
   Image,
   Text,
   Wrap,
-  Icon,
   Stack,
   Spinner,
   Alert,
@@ -25,7 +24,7 @@ import {
 } from '@chakra-ui/react';
 
 import { MinusIcon, StarIcon, SmallAddIcon } from '@chakra-ui/icons';
-import { BiPackage, BiSupport, BiSend } from 'react-icons/bi';
+import { BiPackage, BiSupport} from 'react-icons/bi';
 import { FiTruck } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProduct } from '../redux/actions/productActions';
@@ -57,7 +56,7 @@ const ProductScreen = () => {
       dispatch(resetProductError());
       setReviewBoxOpen(false);
     }
-  }, [dispatch, id, cart, reviewSend]);
+  }, [dispatch, id, cart, reviewSend, toast]);
 
   const changeAmount = (input) => {
     if (input === 'plus') {

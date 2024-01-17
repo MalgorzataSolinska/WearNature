@@ -1,4 +1,4 @@
-import { createStandaloneToast } from '@chakra-ui/react';
+
 import { createSlice } from '@reduxjs/toolkit';
 
 const calculateSubtotal = (cartState) => {
